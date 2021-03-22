@@ -1,13 +1,7 @@
 package ui;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-
 public class RestaurantManagerGUI {
+<<<<<<< HEAD
 
     @FXML
     private TableView<?> tvProductsList;
@@ -174,4 +168,7 @@ public class RestaurantManagerGUI {
     void enable_disableProduct(ActionEvent event) {
 
     }
+=======
+	
+>>>>>>> d7814d2cf63d668ce599597cc806e9e2b3dc444f
 }

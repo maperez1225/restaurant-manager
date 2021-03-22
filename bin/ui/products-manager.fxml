@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RestaurantManagerGUI">
    <center>
       <GridPane style="-fx-background-color: black;" BorderPane.alignment="CENTER">
@@ -18,35 +17,35 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#manageProducts" prefHeight="30.0" prefWidth="304.0" scaleX="0.75" style="-fx-background-color: gold;" text="Gestionar Productos">
+            <Button mnemonicParsing="false" onAction="#createProduct" prefHeight="39.0" prefWidth="301.0" scaleX="0.75" style="-fx-background-color: gold;" text="Crear Producto">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#manageIngredients" prefHeight="30.0" prefWidth="302.0" scaleX="0.75" style="-fx-background-color: gold;" text="Gestionar Ingredientes" GridPane.columnIndex="1">
+            <Button mnemonicParsing="false" onAction="#updateProduct" prefHeight="39.0" prefWidth="301.0" scaleX="0.75" style="-fx-background-color: gold;" text="Actualizar Producto" GridPane.columnIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#manageUsers" prefHeight="39.0" prefWidth="351.0" scaleX="0.75" style="-fx-background-color: gold;" text="Gestionar Usuarios" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" onAction="#deleteProductMenu" prefHeight="39.0" prefWidth="302.0" scaleX="0.75" style="-fx-background-color: gold;" text="Eliiminar Producto" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#manageCustomers" prefHeight="30.0" prefWidth="301.0" scaleX="0.75" style="-fx-background-color: gold;" text="Gestionar Clientes" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" onAction="#disableProduct" prefHeight="39.0" prefWidth="302.0" scaleX="0.75" style="-fx-background-color: gold;" text="Deshabilitar Producto" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#manageOrders" prefHeight="30.0" prefWidth="316.0" scaleX="0.75" style="-fx-background-color: gold;" text="Gestionar Pedidos" GridPane.rowIndex="2">
+            <Button mnemonicParsing="false" onAction="#showProductsList" prefHeight="39.0" prefWidth="311.0" scaleX="0.75" style="-fx-background-color: gold;" text="Mostrar tabla de productos" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#exit" prefHeight="39.0" prefWidth="301.0" scaleX="0.75" style="-fx-background-color: gold;" text="Salir" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button mnemonicParsing="false" onAction="#backProductFromManager" prefHeight="39.0" prefWidth="308.0" scaleX="0.75" style="-fx-background-color: gold;" text="Atras" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
