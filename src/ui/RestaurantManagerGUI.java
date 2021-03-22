@@ -50,6 +50,29 @@ public class RestaurantManagerGUI {
 
     @FXML
     private TableColumn<?, ?> tcObservations;
+    
+    @FXML
+    private TextField txtProductType;
+
+    @FXML
+    private TextField txtProductSize;
+
+    @FXML
+    private TextField txtProductPrice;
+
+
+
+    
+    @FXML
+    void createUser(ActionEvent event) {
+
+    }
+
+    @FXML
+    void enterUser(ActionEvent event) {
+
+    }
+    
     @FXML
     void exit(ActionEvent event) {
 
@@ -91,7 +114,7 @@ public class RestaurantManagerGUI {
     }
 
     @FXML
-    void deleteProduct(ActionEvent event) {
+    void deleteProductMenu(ActionEvent event) {
 
     }
 
@@ -119,6 +142,36 @@ public class RestaurantManagerGUI {
 
     @FXML
     void backAddProductToProductManager(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void backUpdateProductToProductManager(ActionEvent event) {
+
+    }
+
+    @FXML
+    void nextUpdateProduct(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void backDeleteToProductManager(ActionEvent event) {
+
+    }
+
+    @FXML
+    void deleteProduct(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void backEnableDisableToProductChooser(ActionEvent event) {
+
+    }
+
+    @FXML
+    void enable_disableProduct(ActionEvent event) {
 
     }
 }
