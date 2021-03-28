@@ -1,13 +1,13 @@
 package model;
 import java.util.ArrayList;
-public class RestaurantManager{
+public class Restaurant{
 	private ArrayList<User> users;
 	private ArrayList<Ingredient> ingredients;
 	private ArrayList<Product> products;
 	private ArrayList<ProductType> types;
 	private ArrayList<Customer> customers;
 	private ArrayList<Order> orders;
-	public RestaurantManager() {
+	public Restaurant() {
 		users = new ArrayList<User>();
 		ingredients = new ArrayList<Ingredient>();
 		products = new ArrayList<Product>();
