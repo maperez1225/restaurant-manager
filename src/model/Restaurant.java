@@ -18,6 +18,30 @@ public class Restaurant{
 	public void addUser(User user) {
 		users.add(user);
 	}
+	public int getUser(String username) {
+		boolean found = false;
+		int index = users.size();
+		for (int i = 0; i < users.size() && !found; i++) {
+			if (users.get(i).getUsername().equals(username)) {
+				found = true;
+				index = i;
+			}
+		}
+		return index;
+	}
+	public boolean authenticateUser(int index, String password) {
+		boolean correct = false;
+		if (users.get(index).getPassword().equals(password))
+			correct = true;
+		return correct;
+	}
+	public boolean userExists(String username) {
+		boolean exists = false;
+		for (int i = 0; i < users.size() && !exists; i++)
+			if (users.get(i).getUsername().equals(username))
+				exists = true;
+		return exists;
+	}
 	public void addIngredient(Ingredient ingredient) {
 		ingredients.add(ingredient);
 	}

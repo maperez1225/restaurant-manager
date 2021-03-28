@@ -5,8 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import model.Restaurant;
 import model.User;
@@ -39,12 +41,31 @@ public class RestaurantGUI {
 		Parent userView = fxmlLoader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(userView);
+		txtLoginUser.clear();
+		txtLoginPassword.clear();
     }
-
     @FXML
     public void registerUser(ActionEvent event) {
     	User user = new User(registerUsername.getText(), registerPassword.getText(), registerName.getText(), registerLastName.getText(), Long.parseLong(registerId.getText()));
-    	restaurant.addUser(user);
+    	if (!restaurant.userExists(user.getUsername())) {
+    		restaurant.addUser(user);
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Autenticación");
+			alert.setHeaderText(null);
+			alert.setContentText("Usuario creado exitosamente.");
+			alert.show();
+			registerUsername.clear();
+			registerPassword.clear();
+    	}
+    	else {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Error");
+			alert.setHeaderText(null);
+			alert.setContentText("El nombre de usuario ya existe.");
+			alert.show();
+			registerUsername.clear();
+			registerPassword.clear();
+    	}
     }
     @FXML
     public void launchCreateUser(ActionEvent event) throws IOException{
@@ -54,9 +75,76 @@ public class RestaurantGUI {
 		mainPane.getChildren().clear();
     	mainPane.getChildren().add(userView);
     }
+    @FXML
+    public void login(ActionEvent event) throws IOException {
+    	if (restaurant.userExists(txtLoginUser.getText())) {
+    		if (restaurant.authenticateUser(restaurant.getUser(txtLoginUser.getText()), txtLoginPassword.getText())) {
+    			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
+    	    	fxmlLoader.setController(this);
+    			Parent userView = fxmlLoader.load();
+    			mainPane.getChildren().clear();
+    			mainPane.getChildren().add(userView);
+    		}
+    		else {
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Error");
+    			alert.setHeaderText(null);
+    			alert.setContentText("La contraseña es incorrecta.");
+    			alert.show();
+    			txtLoginPassword.clear();
+    		}
+    	}
+    	else {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Error");
+			alert.setHeaderText(null);
+			alert.setContentText("El usuario no existe.");
+			alert.show();
+			txtLoginUser.clear();
+			txtLoginPassword.clear();
+    	}
+    }
+    public void manageCustomers(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
+    	fxmlLoader.setController(this);
+		Parent userView = fxmlLoader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(userView);
+    }
 
     @FXML
-    public void login(ActionEvent event) {
-    	
+    public void manageIngredients(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
+    	fxmlLoader.setController(this);
+		Parent userView = fxmlLoader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(userView);
+    }
+
+    @FXML
+    public void manageOrders(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
+    	fxmlLoader.setController(this);
+		Parent userView = fxmlLoader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(userView);
+    }
+
+    @FXML
+    public void manageProducts(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
+    	fxmlLoader.setController(this);
+		Parent userView = fxmlLoader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(userView);
+    }
+
+    @FXML
+    public void manageUsers(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
+    	fxmlLoader.setController(this);
+		Parent userView = fxmlLoader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(userView);
     }
 }
