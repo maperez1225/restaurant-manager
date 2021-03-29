@@ -1,6 +1,9 @@
 package ui;
 
 import java.io.IOException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import model.Customer;
 import model.Restaurant;
@@ -227,5 +231,15 @@ public class RestaurantGUI {
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(userView);
 		
+		ObservableList<Customer> observableList;
+    	observableList = FXCollections.observableArrayList(restaurant.getCustomers());
+    	
+		tvCustomers.setItems(observableList);
+		tcName.setCellValueFactory(new PropertyValueFactory<Customer,String>("name")); 
+		tcLastName.setCellValueFactory(new PropertyValueFactory<Customer,String>("lastName"));
+		tcID.setCellValueFactory(new PropertyValueFactory<Customer,String>("id"));
+		tcAdress.setCellValueFactory(new PropertyValueFactory<Customer,String>("address"));
+		tcMobilePhone.setCellValueFactory(new PropertyValueFactory<Customer,String>("phone"));
+		tcObservations.setCellValueFactory(new PropertyValueFactory<Customer,String>("observations"));
     }
 }

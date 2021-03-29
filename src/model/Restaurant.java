@@ -38,9 +38,12 @@ public class Restaurant{
 	}
 	public boolean customerExists(Customer customer) {
 		boolean exists = false;
-		int index = Collections.binarySearch(customers, customer);
-		if (index >= 0)
-			exists = true;
+		if(!customers.isEmpty()){
+			int index = Collections.binarySearch(customers, customer);
+			if (index <= 0)
+				exists = true;
+		}
+		
 		return exists;
 	}
 	public boolean userExists(String username) {
@@ -73,4 +76,7 @@ public class Restaurant{
 	public void addOrder(Order order) {
 		orders.add(order);
 	}
+	public ArrayList<Customer> getCustomers(){
+		return customers;
+	} 
 }
