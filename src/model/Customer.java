@@ -1,5 +1,11 @@
 package model;
-public class Customer {
+
+import java.io.Serializable;
+
+public class Customer implements Serializable, Comparable<Customer>{
+	
+	private static final long serialVersionUID = 1;
+	
 	private String name;
 	private String lastName;
 	private long id;
@@ -49,5 +55,9 @@ public class Customer {
 	}
 	public void setObservations(String observations) {
 		this.observations = observations;
+	}
+	@Override
+	public int compareTo(Customer o) {
+		return this.lastName.compareTo(o.getLastName());
 	}
 }
