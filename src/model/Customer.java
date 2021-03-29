@@ -3,9 +3,7 @@ package model;
 import java.io.Serializable;
 
 public class Customer implements Serializable, Comparable<Customer>{
-	
 	private static final long serialVersionUID = 1;
-	
 	private String name;
 	private String lastName;
 	private long id;

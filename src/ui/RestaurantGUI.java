@@ -58,19 +58,14 @@ public class RestaurantGUI {
     private TableColumn<Customer, String> tcObservations;
     @FXML
     private TextField createCustomerName;
-
     @FXML
     private TextField createCustomerLastName;
-
     @FXML
     private TextField createCustomerID;
-
     @FXML
     private TextField createCustomerPhone;
-
     @FXML
     private TextField createCustomerAddress;
-
     @FXML
     private TextArea createCustomerObservations;
 
@@ -88,25 +83,35 @@ public class RestaurantGUI {
     	}
     }
     @FXML
-    public void backMain(ActionEvent event) throws IOException {
+    public void backMain(ActionEvent event){
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
     	fxmlLoader.setController(this);
-		Parent userView = fxmlLoader.load();
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(userView);
+		Parent userView;
+		try {
+			userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     @FXML
-    public void backLogin(ActionEvent event) throws IOException {
+    public void backLogin(ActionEvent event){
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-screen.fxml"));
     	fxmlLoader.setController(this);
-		Parent userView = fxmlLoader.load();
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(userView);
-		txtLoginUser.clear();
-		txtLoginPassword.clear();
+		Parent userView;
+		try {
+			userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+			txtLoginUser.clear();
+			txtLoginPassword.clear();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     @FXML
-    public void registerUser(ActionEvent event) {
+    public void registerUser(ActionEvent event){
     	User user = new User(registerUsername.getText(), registerPassword.getText(), registerName.getText(), registerLastName.getText(), Long.parseLong(registerId.getText()));
     	if (!restaurant.userExists(user.getUsername())) {
     		restaurant.addUser(user);
@@ -129,22 +134,30 @@ public class RestaurantGUI {
     	}
     }
     @FXML
-    public void launchCreateUser(ActionEvent event) throws IOException{
+    public void launchCreateUser(ActionEvent event){
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register-screen.fxml"));
 		fxmlLoader.setController(this);
-		Parent userView = fxmlLoader.load();
-		mainPane.getChildren().clear();
-    	mainPane.getChildren().add(userView);
+		try {
+			Parent userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     @FXML
-    public void login(ActionEvent event) throws IOException {
+    public void login(ActionEvent event){
     	if (restaurant.userExists(txtLoginUser.getText())) {
     		if (restaurant.authenticateUser(restaurant.getUser(txtLoginUser.getText()), txtLoginPassword.getText())) {
     			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
     	    	fxmlLoader.setController(this);
-    			Parent userView = fxmlLoader.load();
-    			mainPane.getChildren().clear();
-    			mainPane.getChildren().add(userView);
+    			try {
+					Parent userView = fxmlLoader.load();
+					mainPane.getChildren().clear();
+					mainPane.getChildren().add(userView);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
     		}
     		else {
     			Alert alert = new Alert(AlertType.INFORMATION);
@@ -165,41 +178,49 @@ public class RestaurantGUI {
 			txtLoginPassword.clear();
     	}
     }
-    public void manageCustomers(ActionEvent event) throws IOException {
+    public void manageCustomers(ActionEvent event){
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customer-manage.fxml"));
     	fxmlLoader.setController(this);
-		Parent userView = fxmlLoader.load();
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(userView);
+		try {
+			Parent userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     @FXML
-    public void manageIngredients(ActionEvent event) throws IOException {
+    public void manageIngredients(ActionEvent event){
     	
     }
 
     @FXML
-    public void manageOrders(ActionEvent event) throws IOException {
+    public void manageOrders(ActionEvent event){
     	
     }
 
     @FXML
-    public void manageProducts(ActionEvent event) throws IOException {
+    public void manageProducts(ActionEvent event){
     	
     }
 
     @FXML
-    public void manageUsers(ActionEvent event) throws IOException {
+    public void manageUsers(ActionEvent event){
     	
     }
     
     @FXML
-    public void addCustomer(ActionEvent event) throws IOException{
+    public void addCustomer(ActionEvent event){
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customer-create.fxml"));
     	fxmlLoader.setController(this);
-		Parent userView = fxmlLoader.load();
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(userView);
+		try {
+			Parent userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     @FXML
@@ -208,22 +229,24 @@ public class RestaurantGUI {
     }
 
     @FXML
-    public void loadCustomerList(ActionEvent event) throws IOException {
+    public void loadCustomerList(ActionEvent event){
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customers-list.fxml"));
     	fxmlLoader.setController(this);
-		Parent userView = fxmlLoader.load();
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(userView);
-		
-		ObservableList<Customer> observableList;
-    	observableList = FXCollections.observableArrayList(restaurant.getCustomers());
-    	
-		tvCustomers.setItems(observableList);
-		tcName.setCellValueFactory(new PropertyValueFactory<Customer,String>("name")); 
-		tcLastName.setCellValueFactory(new PropertyValueFactory<Customer,String>("lastName"));
-		tcID.setCellValueFactory(new PropertyValueFactory<Customer,String>("id"));
-		tcAdress.setCellValueFactory(new PropertyValueFactory<Customer,String>("address"));
-		tcMobilePhone.setCellValueFactory(new PropertyValueFactory<Customer,String>("phone"));
-		tcObservations.setCellValueFactory(new PropertyValueFactory<Customer,String>("observations"));
+		try {
+			Parent userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+			ObservableList<Customer> observableList;
+			observableList = FXCollections.observableArrayList(restaurant.getCustomers());
+			tvCustomers.setItems(observableList);
+			tcName.setCellValueFactory(new PropertyValueFactory<Customer,String>("name")); 
+			tcLastName.setCellValueFactory(new PropertyValueFactory<Customer,String>("lastName"));
+			tcID.setCellValueFactory(new PropertyValueFactory<Customer,String>("id"));
+			tcAdress.setCellValueFactory(new PropertyValueFactory<Customer,String>("address"));
+			tcMobilePhone.setCellValueFactory(new PropertyValueFactory<Customer,String>("phone"));
+			tcObservations.setCellValueFactory(new PropertyValueFactory<Customer,String>("observations"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 }
