@@ -19,7 +19,7 @@
             <TableColumn fx:id="tcID" prefWidth="100.0" resizable="false" text="ID" />
             <TableColumn fx:id="tcAdress" prefWidth="150.0" resizable="false" text="Dirección" />
             <TableColumn fx:id="tcMobilePhone" prefWidth="120.0" resizable="false" text="Tel" />
-            <TableColumn fx:id="tcObservations" prefWidth="150.0" resizable="false" text="Observaciones" />
+            <TableColumn fx:id="tcObservations" prefWidth="145.0" resizable="false" text="Observaciones" />
         </columns>
       </TableView>
    </center>

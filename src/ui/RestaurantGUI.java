@@ -23,8 +23,13 @@ import model.User;
 
 public class RestaurantGUI {
 	private Restaurant restaurant;
-	public RestaurantGUI(Restaurant restaurant) {
-		this.restaurant = restaurant;
+	public RestaurantGUI(Restaurant r) {
+		restaurant = r;
+		try {
+			restaurant.loadData();
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 	@FXML
     private Pane mainPane;
@@ -73,8 +78,12 @@ public class RestaurantGUI {
     public void createCustomer(ActionEvent event){
     	Customer customer = new Customer(createCustomerName.getText(), createCustomerLastName.getText(), Long.parseLong(createCustomerID.getText()), createCustomerAddress.getText(), Long.parseLong(createCustomerPhone.getText()), createCustomerObservations.getText());
     	if (!restaurant.customerExists(customer))
-    		restaurant.addCustomer(customer);
-    	else {
+			try {
+				restaurant.addCustomer(customer);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		else {
     		Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Error");
 			alert.setHeaderText(null);
@@ -114,14 +123,22 @@ public class RestaurantGUI {
     public void registerUser(ActionEvent event){
     	User user = new User(registerUsername.getText(), registerPassword.getText(), registerName.getText(), registerLastName.getText(), Long.parseLong(registerId.getText()));
     	if (!restaurant.userExists(user.getUsername())) {
-    		restaurant.addUser(user);
-    		Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Autenticación");
-			alert.setHeaderText(null);
-			alert.setContentText("Usuario creado exitosamente.");
-			alert.show();
-			registerUsername.clear();
-			registerPassword.clear();
+    		try {
+				restaurant.addUser(user);
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Autenticación");
+				alert.setHeaderText(null);
+				alert.setContentText("Usuario creado exitosamente.");
+				alert.show();
+				registerName.clear();
+				registerLastName.clear();
+				registerUsername.clear();
+				registerPassword.clear();
+				registerId.clear();
+				backLogin(event);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
     	}
     	else {
     		Alert alert = new Alert(AlertType.INFORMATION);
