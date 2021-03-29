@@ -1,5 +1,6 @@
 package model;
 import java.util.ArrayList;
+import java.util.Collections;
 public class Restaurant{
 	private ArrayList<User> users;
 	private ArrayList<Ingredient> ingredients;
@@ -35,6 +36,13 @@ public class Restaurant{
 			correct = true;
 		return correct;
 	}
+	public boolean customerExists(Customer customer) {
+		boolean exists = false;
+		int index = Collections.binarySearch(customers, customer);
+		if (index >= 0)
+			exists = true;
+		return exists;
+	}
 	public boolean userExists(String username) {
 		boolean exists = false;
 		for (int i = 0; i < users.size() && !exists; i++)
@@ -52,7 +60,15 @@ public class Restaurant{
 		types.add(type);
 	}
 	public void addCustomer(Customer customer) {
-		customers.add(customer);
+		if (customers.isEmpty())
+			customers.add(customer);
+		else {
+			int i = 0;
+			while (i<customers.size() && customer.compareTo(customers.get(i)) > 0) {
+				i++;
+			}
+			customers.add(i, customer);
+		}
 	}
 	public void addOrder(Order order) {
 		orders.add(order);

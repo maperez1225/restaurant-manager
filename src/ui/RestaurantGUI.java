@@ -72,8 +72,16 @@ public class RestaurantGUI {
 
     @FXML
     public void createCustomer(ActionEvent event){
-    	//Customer customer = new Customer(createCustomerName.getText(), createCustomerLastName.getText(), Long.parseLong(createCustomerID.getText()), createCustomerAddress.getText(), Long.parseLong(createCustomerPhone.getText()), createCustomerObservations.getText());
-    	
+    	Customer customer = new Customer(createCustomerName.getText(), createCustomerLastName.getText(), Long.parseLong(createCustomerID.getText()), createCustomerAddress.getText(), Long.parseLong(createCustomerPhone.getText()), createCustomerObservations.getText());
+    	if (!restaurant.customerExists(customer))
+    		restaurant.addCustomer(customer);
+    	else {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Error");
+			alert.setHeaderText(null);
+			alert.setContentText("El cliente ya existe.");
+			alert.show();
+    	}
     }
     @FXML
     public void backMain(ActionEvent event) throws IOException {
@@ -218,5 +226,6 @@ public class RestaurantGUI {
 		Parent userView = fxmlLoader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(userView);
+		
     }
 }
