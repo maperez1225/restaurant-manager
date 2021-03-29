@@ -1,4 +1,7 @@
 package model;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 public class Restaurant{
@@ -8,6 +11,7 @@ public class Restaurant{
 	private ArrayList<ProductType> types;
 	private ArrayList<Customer> customers;
 	private ArrayList<Order> orders;
+	public final static String SAVE_PATH_FILE = "data/appdata.ap2";
 	public Restaurant() {
 		users = new ArrayList<User>();
 		ingredients = new ArrayList<Ingredient>();
@@ -15,6 +19,16 @@ public class Restaurant{
 		types = new ArrayList<ProductType>();
 		customers = new ArrayList<Customer>();
 		orders = new ArrayList<Order>();
+	}
+	public void saveData() throws IOException{
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE));
+		oos.writeObject(users);
+		oos.writeObject(ingredients);
+		oos.writeObject(products);
+		oos.writeObject(types);
+		oos.writeObject(customers);
+		oos.writeObject(orders);
+		oos.close();
 	}
 	public void addUser(User user) {
 		users.add(user);
@@ -40,10 +54,10 @@ public class Restaurant{
 		boolean exists = false;
 		if(!customers.isEmpty()){
 			int index = Collections.binarySearch(customers, customer);
-			if (index <= 0)
+			if (index >= 0) {
 				exists = true;
+			}
 		}
-		
 		return exists;
 	}
 	public boolean userExists(String username) {

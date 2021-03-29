@@ -175,38 +175,22 @@ public class RestaurantGUI {
 
     @FXML
     public void manageIngredients(ActionEvent event) throws IOException {
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
-    	fxmlLoader.setController(this);
-		Parent userView = fxmlLoader.load();
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(userView);
+    	
     }
 
     @FXML
     public void manageOrders(ActionEvent event) throws IOException {
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
-    	fxmlLoader.setController(this);
-		Parent userView = fxmlLoader.load();
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(userView);
+    	
     }
 
     @FXML
     public void manageProducts(ActionEvent event) throws IOException {
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
-    	fxmlLoader.setController(this);
-		Parent userView = fxmlLoader.load();
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(userView);
+    	
     }
 
     @FXML
     public void manageUsers(ActionEvent event) throws IOException {
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
-    	fxmlLoader.setController(this);
-		Parent userView = fxmlLoader.load();
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(userView);
+    	
     }
     
     @FXML

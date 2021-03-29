@@ -1,5 +1,9 @@
 package model;
-public class ProductType {
+
+import java.io.Serializable;
+
+public class ProductType implements Serializable{
+	private static final long serialVersionUID = 1;
 	private String name;
 	private boolean active;
 	public ProductType(String n) {
