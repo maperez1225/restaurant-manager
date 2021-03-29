@@ -7,9 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
+import model.Customer;
 import model.Restaurant;
 import model.User;
 
@@ -34,6 +38,51 @@ public class RestaurantGUI {
     private PasswordField registerPassword;
     @FXML
     private TextField registerId;
+    @FXML
+    private TableView<Customer> tvCustomers;
+    @FXML
+    private TableColumn<Customer, String> tcName;
+    @FXML
+    private TableColumn<Customer, String> tcLastName;
+    @FXML
+    private TableColumn<Customer, String> tcID;
+    @FXML
+    private TableColumn<Customer, String> tcAdress;
+    @FXML
+    private TableColumn<Customer, String> tcMobilePhone;
+    @FXML
+    private TableColumn<Customer, String> tcObservations;
+    @FXML
+    private TextField createCustomerName;
+
+    @FXML
+    private TextField createCustomerLastName;
+
+    @FXML
+    private TextField createCustomerID;
+
+    @FXML
+    private TextField createCustomerPhone;
+
+    @FXML
+    private TextField createCustomerAddress;
+
+    @FXML
+    private TextArea createCustomerObservations;
+
+    @FXML
+    public void createCustomer(ActionEvent event){
+    	//Customer customer = new Customer(createCustomerName.getText(), createCustomerLastName.getText(), Long.parseLong(createCustomerID.getText()), createCustomerAddress.getText(), Long.parseLong(createCustomerPhone.getText()), createCustomerObservations.getText());
+    	
+    }
+    @FXML
+    public void backMain(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
+    	fxmlLoader.setController(this);
+		Parent userView = fxmlLoader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(userView);
+    }
     @FXML
     public void backLogin(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-screen.fxml"));
@@ -105,7 +154,7 @@ public class RestaurantGUI {
     	}
     }
     public void manageCustomers(ActionEvent event) throws IOException {
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customer-manage.fxml"));
     	fxmlLoader.setController(this);
 		Parent userView = fxmlLoader.load();
 		mainPane.getChildren().clear();
@@ -142,6 +191,29 @@ public class RestaurantGUI {
     @FXML
     public void manageUsers(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
+    	fxmlLoader.setController(this);
+		Parent userView = fxmlLoader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(userView);
+    }
+    
+    @FXML
+    public void addCustomer(ActionEvent event) throws IOException{
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customer-create.fxml"));
+    	fxmlLoader.setController(this);
+		Parent userView = fxmlLoader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(userView);
+    }
+
+    @FXML
+    public void editCustomer(ActionEvent event) {
+    	
+    }
+
+    @FXML
+    public void loadCustomerList(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customers-list.fxml"));
     	fxmlLoader.setController(this);
 		Parent userView = fxmlLoader.load();
 		mainPane.getChildren().clear();
