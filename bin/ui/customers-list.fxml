@@ -14,12 +14,12 @@
    <center>
       <TableView fx:id="tvCustomers" accessibleRole="IMAGE_VIEW" prefHeight="200.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="tcName" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="140.0" resizable="false" text="Nombre" />
-          <TableColumn fx:id="tcLastName" minWidth="0.0" prefWidth="140.0" resizable="false" text="Apellido" />
-            <TableColumn fx:id="tcID" prefWidth="100.0" resizable="false" text="ID" />
-            <TableColumn fx:id="tcAdress" prefWidth="150.0" resizable="false" text="Dirección" />
-            <TableColumn fx:id="tcMobilePhone" prefWidth="120.0" resizable="false" text="Tel" />
-            <TableColumn fx:id="tcObservations" prefWidth="150.0" resizable="false" text="Observaciones" />
+          <TableColumn fx:id="tcCustomerName" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="140.0" resizable="false" text="Nombre" />
+          <TableColumn fx:id="tcCustomerLastName" minWidth="0.0" prefWidth="140.0" resizable="false" text="Apellido" />
+            <TableColumn fx:id="tcCustomerID" prefWidth="100.0" resizable="false" text="ID" />
+            <TableColumn fx:id="tcCustomerAddress" prefWidth="150.0" resizable="false" text="Dirección" />
+            <TableColumn fx:id="tcCustomerPhone" prefWidth="120.0" resizable="false" text="Tel" />
+            <TableColumn fx:id="tcCustomerObservations" prefWidth="145.0" resizable="false" text="Observaciones" />
         </columns>
       </TableView>
    </center>
