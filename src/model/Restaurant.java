@@ -85,8 +85,17 @@ public class Restaurant{
 	public boolean userExists(String username) {
 		boolean exists = false;
 		for (int i = 0; i < users.size() && !exists; i++)
-			if (users.get(i).getUsername().equals(username))
+			if (users.get(i).getUsername().equalsIgnoreCase(username))
 				exists = true;
+		return exists;
+	}
+	public boolean ingredientExists(String name) {
+		boolean exists = false;
+		if (!ingredients.isEmpty()) {
+			for (int i = 0; i < users.size() && !exists; i++)
+				if (ingredients.get(i).getName().equalsIgnoreCase(name))
+					exists = true;
+		}
 		return exists;
 	}
 	public void addIngredient(Ingredient ingredient) throws IOException {

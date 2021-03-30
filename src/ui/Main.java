@@ -1,5 +1,4 @@
 package ui;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -7,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.Restaurant;
-
 public class Main extends Application{
 	private RestaurantGUI restaurantGUI;
 	private Restaurant restaurant;

@@ -1,7 +1,5 @@
 package ui;
-
 import java.io.IOException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,12 +13,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import model.Customer;
+import model.Ingredient;
 import model.Restaurant;
 import model.User;
-
 public class RestaurantGUI {
 	private Restaurant restaurant;
 	public RestaurantGUI(Restaurant r) {
@@ -73,24 +72,10 @@ public class RestaurantGUI {
     private TextField createCustomerAddress;
     @FXML
     private TextArea createCustomerObservations;
-
     @FXML
-    public void createCustomer(ActionEvent event){
-    	Customer customer = new Customer(createCustomerName.getText(), createCustomerLastName.getText(), Long.parseLong(createCustomerID.getText()), createCustomerAddress.getText(), Long.parseLong(createCustomerPhone.getText()), createCustomerObservations.getText());
-    	if (!restaurant.customerExists(customer))
-			try {
-				restaurant.addCustomer(customer);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		else {
-    		Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Error");
-			alert.setHeaderText(null);
-			alert.setContentText("El cliente ya existe.");
-			alert.show();
-    	}
-    }
+    private TextField createIngredientName;
+    @FXML
+    private CheckBox createIngredientEnable;
     @FXML
     public void backMain(ActionEvent event){
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
@@ -120,6 +105,55 @@ public class RestaurantGUI {
 		}
     }
     @FXML
+	public void login(ActionEvent event){
+		if (restaurant.userExists(txtLoginUser.getText())) {
+			if (restaurant.authenticateUser(restaurant.getUser(txtLoginUser.getText()), txtLoginPassword.getText())) {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
+		    	fxmlLoader.setController(this);
+				try {
+					Parent userView = fxmlLoader.load();
+					mainPane.getChildren().clear();
+					mainPane.getChildren().add(userView);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Error");
+				alert.setHeaderText(null);
+				alert.setContentText("La contraseña es incorrecta.");
+				alert.show();
+				txtLoginPassword.clear();
+			}
+		}
+		else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Error");
+			alert.setHeaderText(null);
+			alert.setContentText("El usuario no existe.");
+			alert.show();
+			txtLoginUser.clear();
+			txtLoginPassword.clear();
+		}
+	}
+	@FXML
+	public void manageUsers(ActionEvent event){
+		
+	}
+	@FXML
+	public void launchCreateUser(ActionEvent event){
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register-screen.fxml"));
+		fxmlLoader.setController(this);
+		try {
+			Parent userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@FXML
     public void registerUser(ActionEvent event){
     	User user = new User(registerUsername.getText(), registerPassword.getText(), registerName.getText(), registerLastName.getText(), Long.parseLong(registerId.getText()));
     	if (!restaurant.userExists(user.getUsername())) {
@@ -150,51 +184,6 @@ public class RestaurantGUI {
 			registerPassword.clear();
     	}
     }
-    @FXML
-    public void launchCreateUser(ActionEvent event){
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register-screen.fxml"));
-		fxmlLoader.setController(this);
-		try {
-			Parent userView = fxmlLoader.load();
-			mainPane.getChildren().clear();
-			mainPane.getChildren().add(userView);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    }
-    @FXML
-    public void login(ActionEvent event){
-    	if (restaurant.userExists(txtLoginUser.getText())) {
-    		if (restaurant.authenticateUser(restaurant.getUser(txtLoginUser.getText()), txtLoginPassword.getText())) {
-    			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("area-main.fxml"));
-    	    	fxmlLoader.setController(this);
-    			try {
-					Parent userView = fxmlLoader.load();
-					mainPane.getChildren().clear();
-					mainPane.getChildren().add(userView);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-    		}
-    		else {
-    			Alert alert = new Alert(AlertType.INFORMATION);
-    			alert.setTitle("Error");
-    			alert.setHeaderText(null);
-    			alert.setContentText("La contraseña es incorrecta.");
-    			alert.show();
-    			txtLoginPassword.clear();
-    		}
-    	}
-    	else {
-    		Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Error");
-			alert.setHeaderText(null);
-			alert.setContentText("El usuario no existe.");
-			alert.show();
-			txtLoginUser.clear();
-			txtLoginPassword.clear();
-    	}
-    }
     public void manageCustomers(ActionEvent event){
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customer-manage.fxml"));
     	fxmlLoader.setController(this);
@@ -206,31 +195,10 @@ public class RestaurantGUI {
 			e.printStackTrace();
 		}
     }
-
     @FXML
-    public void manageIngredients(ActionEvent event){
-    	
-    }
-
-    @FXML
-    public void manageOrders(ActionEvent event){
-    	
-    }
-
-    @FXML
-    public void manageProducts(ActionEvent event){
-    	
-    }
-
-    @FXML
-    public void manageUsers(ActionEvent event){
-    	
-    }
-    
-    @FXML
-    public void addCustomer(ActionEvent event){
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customer-create.fxml"));
-    	fxmlLoader.setController(this);
+	public void addCustomer(ActionEvent event){
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customer-create.fxml"));
+		fxmlLoader.setController(this);
 		try {
 			Parent userView = fxmlLoader.load();
 			mainPane.getChildren().clear();
@@ -238,17 +206,32 @@ public class RestaurantGUI {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
-
-    @FXML
-    public void editCustomer(ActionEvent event) {
-    	
-    }
-
-    @FXML
-    public void loadCustomerList(ActionEvent event){
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customers-list.fxml"));
-    	fxmlLoader.setController(this);
+	}
+	@FXML
+	public void createCustomer(ActionEvent event){
+		Customer customer = new Customer(createCustomerName.getText(), createCustomerLastName.getText(), Long.parseLong(createCustomerID.getText()), createCustomerAddress.getText(), Long.parseLong(createCustomerPhone.getText()), createCustomerObservations.getText());
+		if (!restaurant.customerExists(customer))
+			try {
+				restaurant.addCustomer(customer);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Error");
+			alert.setHeaderText(null);
+			alert.setContentText("El cliente ya existe.");
+			alert.show();
+		}
+	}
+	@FXML
+	public void editCustomer(ActionEvent event) {
+		
+	}
+	@FXML
+	public void loadCustomerList(ActionEvent event){
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customers-list.fxml"));
+		fxmlLoader.setController(this);
 		try {
 			Parent userView = fxmlLoader.load();
 			mainPane.getChildren().clear();
@@ -265,5 +248,69 @@ public class RestaurantGUI {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	@FXML
+    public void manageIngredients(ActionEvent event){
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingredient-manage.fxml"));
+    	fxmlLoader.setController(this);
+		try {
+			Parent userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
+    @FXML
+	public void addIngredient(ActionEvent event) {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingredient-create.fxml"));
+    	fxmlLoader.setController(this);
+		try {
+			Parent userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@FXML
+	public void createIngredient(ActionEvent event) {
+		Ingredient ingredient = new Ingredient(createIngredientName.getText(),createIngredientEnable.isSelected());
+		if (!restaurant.ingredientExists(ingredient.getName()))
+			try {
+				restaurant.addIngredient(ingredient);
+				createIngredientName.clear();
+				createIngredientEnable.setSelected(true);
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Operación Exitosa");
+				alert.setHeaderText(null);
+				alert.setContentText("Ingrediente creado exitosamente.");
+				alert.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Error");
+			alert.setHeaderText(null);
+			alert.setContentText("El ingrediente ya existe.");
+			alert.show();
+		}
+	}
+	@FXML
+	public void editIngredient(ActionEvent event) {
+		
+	}
+	@FXML
+	public void loadIngredientList(ActionEvent event) {
+		
+	}
+	@FXML
+	public void manageOrders(ActionEvent event){
+		
+	}
+	@FXML
+	public void manageProducts(ActionEvent event){
+		
+	}
 }

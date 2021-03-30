@@ -1,14 +1,12 @@
 package model;
-
 import java.io.Serializable;
-
 public class Ingredient implements Serializable{
 	private static final long serialVersionUID = 1;
 	private String name;
 	private boolean active;
-	public Ingredient(String n){
-		setName(n);
-		setActive(true);
+	public Ingredient(String n, boolean a){
+		name = n;
+		active = a;
 	}
 	public String getName() {
 		return name;
@@ -19,7 +17,10 @@ public class Ingredient implements Serializable{
 	public boolean isActive() {
 		return active;
 	}
-	public void setActive(boolean active) {
-		this.active = active;
+	public void setActive() {
+		active = true;
+	}
+	public void disable() {
+		
 	}
 }
