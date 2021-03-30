@@ -8,13 +8,17 @@ public class Customer implements Serializable, Comparable<Customer>{
 	private String address;
 	private long phone;
 	private String observations;
-	public Customer(String name, String lastName, long id, String address, long phone, String observations) {
+	private User createdBy;
+	private User lastEditedBy;
+	public Customer(String name, String lastName, long id, String address, long phone, String observations, User c) {
 		this.name = name;
 		this.lastName = lastName;
 		this.id = id;
 		this.address = address;
 		this.phone = phone;
 		this.observations = observations;
+		createdBy = c;
+		lastEditedBy = c;
 	}
 	public String getName() {
 		return name;
@@ -52,8 +56,18 @@ public class Customer implements Serializable, Comparable<Customer>{
 	public void setObservations(String observations) {
 		this.observations = observations;
 	}
+	public String getCreatedBy() {
+		return createdBy.getUsername();
+	}
+	public String getLastEditedBy() {
+		return lastEditedBy.getUsername();
+	}
+	public void setLastEditedBy(User e) {
+		lastEditedBy = e;
+	}
 	@Override
 	public int compareTo(Customer o) {
-		return this.lastName.compareTo(o.getLastName());
+		return lastName.compareTo(o.getLastName());
 	}
+	
 }

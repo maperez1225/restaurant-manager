@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 public class Restaurant{
 	private List<User> users;
@@ -55,9 +54,13 @@ public class Restaurant{
 		users.add(user);
 		saveData();
 	}
+	public User getUser(int index) {
+		User user = users.get(index);
+		return user;
+	}
 	public int getUser(String username) {
 		boolean found = false;
-		int index = users.size();
+		int index = -1;
 		for (int i = 0; i < users.size() && !found; i++) {
 			if (users.get(i).getUsername().equals(username)) {
 				found = true;
@@ -72,31 +75,29 @@ public class Restaurant{
 			correct = true;
 		return correct;
 	}
-	public boolean customerExists(Customer customer) {
-		boolean exists = false;
-		if(!customers.isEmpty()){
-			int index = Collections.binarySearch(customers, customer);
-			if (index >= 0) {
-				exists = true;
-			}
-		}
-		return exists;
-	}
-	public boolean userExists(String username) {
-		boolean exists = false;
-		for (int i = 0; i < users.size() && !exists; i++)
-			if (users.get(i).getUsername().equalsIgnoreCase(username))
-				exists = true;
-		return exists;
-	}
-	public boolean ingredientExists(String name) {
-		boolean exists = false;
+	public int getIngredient(String name) {
+		int index = -1;
+		boolean found = false;
 		if (!ingredients.isEmpty()) {
-			for (int i = 0; i < users.size() && !exists; i++)
-				if (ingredients.get(i).getName().equalsIgnoreCase(name))
-					exists = true;
+			for (int i = 0; i < ingredients.size() && !found; i++)
+				if (ingredients.get(i).getName().equalsIgnoreCase(name)) {
+					found = true;
+					index = i;
+				}
 		}
-		return exists;
+		return index;
+	}
+	public int getProduct(String name) {
+		int index = -1;
+		boolean found = false;
+		if (!products.isEmpty()) {
+			for (int i = 0; i < products.size() && !found; i++)
+				if (products.get(i).getName().equalsIgnoreCase(name)) {
+					found = true;
+					index = i;
+				}
+		}
+		return index;
 	}
 	public void addIngredient(Ingredient ingredient) throws IOException {
 		ingredients.add(ingredient);
@@ -128,7 +129,32 @@ public class Restaurant{
 		orders.add(order);
 		saveData();
 	}
+	/*
+	 * Para satisfacer el requerimiento de implementar una búsqueda del cliente en el área de pedidos, hemos decidido realizar la búsqueda con el teléfono, ya que
+	 * es más representativo de la utilidad en un restaurante, ya que normalmente al realizar el pedido, le piden al cliente su teléfono y con ese dato se puede
+	 * referenciar al cliente, mientras que con nombres es menos útil para un restaurante.
+	 */
+	public int getCustomer(long phone) {
+		boolean found = false;
+		int index = -1;
+		for (int i = 0; i < customers.size() && !found; i++) {
+			if (customers.get(i).getPhone() == phone) {
+				index = i;
+				found = true;
+			}
+		}
+		return index;
+	}
+	public void deleteCustomer(int index) {
+		customers.remove(index);
+	}
 	public List<Customer> getCustomers(){
 		return customers;
-	} 
+	}
+	public List<ProductType> getTypes(){
+		return types;
+	}
+	public List<Ingredient> getIngredients(){
+		return ingredients;
+	}
 }

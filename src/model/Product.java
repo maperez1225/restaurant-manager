@@ -1,14 +1,14 @@
 package model;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 public class Product implements Serializable{
 	private static final long serialVersionUID = 1;
 	private String name;
 	private ProductType type;
-	private ArrayList<Ingredient> ingredients;
+	private List<Ingredient> ingredients;
 	private String size;
 	private int price;
-	public Product(String name, ProductType type, ArrayList<Ingredient> ingredients, String size, int price) {
+	public Product(String name, ProductType type, List<Ingredient> ingredients, String size, int price) {
 		this.name = name;
 		this.type = type;
 		this.ingredients = ingredients;
@@ -27,10 +27,10 @@ public class Product implements Serializable{
 	public void setType(ProductType type) {
 		this.type = type;
 	}
-	public ArrayList<Ingredient> getIngredients() {
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
-	public void setIngredients(ArrayList<Ingredient> ingredients) {
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 	public String getSize() {
