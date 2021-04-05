@@ -1,5 +1,8 @@
 package ui;
 import java.io.IOException;
+import java.util.Arrays;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -19,6 +23,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
 import model.Customer;
 import model.Ingredient;
 import model.Product;
@@ -108,6 +113,20 @@ public class RestaurantGUI {
     @FXML
     private ChoiceBox<ProductType> choiceCreateProductType;
     @FXML
+    private TableView<Product> tvProductsList;
+    @FXML
+    private TableColumn<Product, String> tcProductName;
+    @FXML
+    private TableColumn<Product, String> tcProductType;
+    @FXML
+    private TableColumn<Product, String> tcProductIngredients;
+    @FXML
+    private TableColumn<Product, String> tcProductSize;
+    @FXML
+    private TableColumn<Product, String> tcProductPrice;
+    @FXML
+    private TableColumn<Product, String> tcProductEnabled;
+    @FXML
     public void addType(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("type-create.fxml"));
 		fxmlLoader.setController(this);
@@ -120,15 +139,6 @@ public class RestaurantGUI {
 		}
     }
     @FXML
-    public void editProduct(ActionEvent event) {
-    	
-    }
-
-    @FXML
-    public void loadProductList(ActionEvent event) {
-    	
-    }
-	@FXML
     public void createType(ActionEvent event) {
     	ProductType type = new ProductType(createTypeName.getText());
     	try {
@@ -352,8 +362,7 @@ public class RestaurantGUI {
 			Parent userView = fxmlLoader.load();
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(userView);
-			ObservableList<Customer> observableList;
-			observableList = FXCollections.observableArrayList(restaurant.getCustomers());
+			ObservableList<Customer> observableList = FXCollections.observableArrayList(restaurant.getCustomers());
 			tvCustomers.setItems(observableList);
 			tcCustomerName.setCellValueFactory(new PropertyValueFactory<Customer,String>("name")); 
 			tcCustomerLastName.setCellValueFactory(new PropertyValueFactory<Customer,String>("lastName"));
@@ -488,6 +497,34 @@ public class RestaurantGUI {
 			choiceCreateProductType.setItems(FXCollections.observableArrayList(restaurant.getTypes()));
 			lvCreateProductIngredients.setItems(FXCollections.observableArrayList(restaurant.getIngredients()));
 			lvCreateProductIngredients.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@FXML
+	public void editProduct(ActionEvent event) {
+		
+	}
+	@FXML
+	public void loadProductList(ActionEvent event) {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("products-list.fxml"));
+		fxmlLoader.setController(this);
+		try {
+			Parent userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+			ObservableList<Product> observableList = FXCollections.observableArrayList(restaurant.getProducts());
+			tvProductsList.setItems(observableList);
+			tcProductName.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
+			tcProductType.setCellValueFactory(new PropertyValueFactory<Product,String>("type"));
+			tcProductIngredients.setCellValueFactory(new Callback<CellDataFeatures<Product, String>, ObservableValue<String>>() {
+			     public ObservableValue<String> call(CellDataFeatures<Product, String> p) {
+			         return new ReadOnlyObjectWrapper<String>(Arrays.toString(p.getValue().getIngredients()));
+			     }
+			  });
+			tcProductSize.setCellValueFactory(new PropertyValueFactory<Product,String>("size"));
+			tcProductPrice.setCellValueFactory(new PropertyValueFactory<Product,String>("price"));
+			tcProductEnabled.setCellValueFactory(new PropertyValueFactory<Product,String>("enabled"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
