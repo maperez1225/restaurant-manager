@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -486,6 +487,7 @@ public class RestaurantGUI {
 			mainPane.getChildren().add(userView);
 			choiceCreateProductType.setItems(FXCollections.observableArrayList(restaurant.getTypes()));
 			lvCreateProductIngredients.setItems(FXCollections.observableArrayList(restaurant.getIngredients()));
+			lvCreateProductIngredients.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
