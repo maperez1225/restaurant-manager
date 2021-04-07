@@ -104,6 +104,10 @@ public class RestaurantGUI {
     @FXML
     private TextField txtCreateProductSize;
     @FXML
+    private TextField txtCustomerPhoneNumber;
+    @FXML
+    private TextField txtProductAmount;
+    @FXML
     private ListView<Ingredient> lvCreateProductIngredients;
     @FXML
     private ChoiceBox<ProductType> choiceCreateProductType;
@@ -426,7 +430,7 @@ public class RestaurantGUI {
 		
 	}
 	@FXML
-    public void createOrder(ActionEvent event) {
+    public void createOrderWindow(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("order-create.fxml"));
 		fxmlLoader.setController(this);
 		try {
@@ -440,8 +444,17 @@ public class RestaurantGUI {
 
     @FXML
     public void manageOrder(ActionEvent event) {
-    	
-    }
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("order-manage.fxml"));
+		fxmlLoader.setController(this);
+		try {
+			Parent userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+    
 	@FXML
 	public void manageProducts(ActionEvent event){
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("product-manage.fxml"));
@@ -492,4 +505,34 @@ public class RestaurantGUI {
 			e.printStackTrace();
 		}
 	}
+	 @FXML
+	    void addProductToOrder(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void backOrderManage(ActionEvent event) {
+	    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("order-manage.fxml"));
+			fxmlLoader.setController(this);
+			try {
+				Parent userView = fxmlLoader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(userView);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	    
+
+	    @FXML
+	    void createOrder(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void OrderCustomerSearch(ActionEvent event) {
+
+	    }
+
+	  
 }
