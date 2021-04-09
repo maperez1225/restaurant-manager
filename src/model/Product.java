@@ -1,19 +1,20 @@
 package model;
 import java.io.Serializable;
-import java.util.List;
 public class Product implements Serializable{
 	private static final long serialVersionUID = 1;
 	private String name;
 	private ProductType type;
-	private List<Ingredient> ingredients;
+	private Ingredient[] ingredients;
 	private String size;
 	private int price;
-	public Product(String name, ProductType type, List<Ingredient> ingredients, String size, int price) {
+	private boolean enabled;
+	public Product(String name, ProductType type, Ingredient[] ingredients, String size, int price) {
 		this.name = name;
 		this.type = type;
 		this.ingredients = ingredients;
 		this.size = size;
 		this.price = price;
+		setEnabled(true);
 	}
 	public String getName() {
 		return name;
@@ -27,10 +28,10 @@ public class Product implements Serializable{
 	public void setType(ProductType type) {
 		this.type = type;
 	}
-	public List<Ingredient> getIngredients() {
+	public Ingredient[] getIngredients() {
 		return ingredients;
 	}
-	public void setIngredients(List<Ingredient> ingredients) {
+	public void setIngredients(Ingredient[] ingredients) {
 		this.ingredients = ingredients;
 	}
 	public String getSize() {
@@ -44,5 +45,11 @@ public class Product implements Serializable{
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 }

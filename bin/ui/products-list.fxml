@@ -4,15 +4,16 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RestaurantManagerGUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <TableView fx:id="tvProductsList" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+      <TableView fx:id="tvProductsList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="tcProduct" prefWidth="144.0" style="-fx-background-color: black;" text="Nombre" />
-            <TableColumn fx:id="tcProduct1" prefWidth="260.0" style="-fx-background-color: black;" text="Ingredientes" />
-          <TableColumn fx:id="tcSize" minWidth="0.0" prefWidth="62.0" style="-fx-background-color: black;" text="Tamaño" />
-            <TableColumn fx:id="tcPrize" prefWidth="63.0" style="-fx-background-color: black;" text="Precio" />
-            <TableColumn fx:id="tcPrize1" prefWidth="70.0" style="-fx-background-color: black;" text="Habilitado" />
+          <TableColumn fx:id="tcProductName" prefWidth="201.0" text="Nombre" />
+            <TableColumn fx:id="tcProductType" prefWidth="130.0" text="Tipo" />
+            <TableColumn fx:id="tcProductIngredients" prefWidth="228.0" text="Ingredientes" />
+          <TableColumn fx:id="tcProductSize" minWidth="0.0" prefWidth="56.0" text="Tamaño" />
+            <TableColumn fx:id="tcProductPrice" prefWidth="79.0" text="Precio" />
+            <TableColumn fx:id="tcProductEnabled" prefWidth="105.0" text="Habilitado" />
         </columns>
       </TableView>
    </center>
