@@ -436,7 +436,16 @@ public class RestaurantGUI {
 	}
 	@FXML
 	public void manageOrders(ActionEvent event){
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("order-manage.fxml"));
+		fxmlLoader.setController(this);
+		try {
+			Parent userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+		} catch (IOException e) {
+			e.printStackTrace();
 		
+	}
 	}
 	@FXML
     public void createOrderWindow(ActionEvent event) {
