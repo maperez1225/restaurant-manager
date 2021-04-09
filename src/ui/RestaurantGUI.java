@@ -514,7 +514,7 @@ public class RestaurantGUI {
 			e.printStackTrace();
 		}
 	}
-<<<<<<< HEAD
+
 	 @FXML
 	    void addProductToOrder(ActionEvent event) {
 
@@ -543,9 +543,6 @@ public class RestaurantGUI {
 	    void OrderCustomerSearch(ActionEvent event) {
 
 	    }
-
-	  
-=======
 	@FXML
 	public void editProduct(ActionEvent event) {
 		
@@ -574,5 +571,4 @@ public class RestaurantGUI {
 			e.printStackTrace();
 		}
 	}
->>>>>>> d30ed5ed7bc322ffbaf65659d9c1efc51d404a3d
 }

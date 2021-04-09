@@ -16,7 +16,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button mnemonicParsing="false" onAction="#createOrder" style="-fx-background-color: gold;" text="Nueva Orden" />
+      <Button mnemonicParsing="false" onAction="#createOrderWindow" style="-fx-background-color: gold;" text="Nueva Orden" />
       <Button mnemonicParsing="false" onAction="#manageOrder" style="-fx-background-color: gold;" text="Gestionar Orden" GridPane.columnIndex="1" />
       <Button mnemonicParsing="false" onAction="#backMain" style="-fx-background-color: gold;" text="Regresar" GridPane.rowIndex="2" />
    </children>
