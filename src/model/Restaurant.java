@@ -145,6 +145,9 @@ public class Restaurant{
 		}
 		return index;
 	}
+	public Customer getCustomer(int index) {
+		return customers.get(index);
+	}
 	public void deleteCustomer(int index) {
 		customers.remove(index);
 	}

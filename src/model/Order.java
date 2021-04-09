@@ -1,6 +1,8 @@
 package model;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 public class Order implements Serializable{
 	
 	private static final long serialVersionUID = 1;
@@ -13,15 +15,15 @@ public class Order implements Serializable{
 	}
 	private Date date;
 	private Status status;
-	private Product[] products;
-	private int[] productAmounts;
+	private List<Product> products;
+	private List<Integer> productAmounts;
 	private User user;
 	private Customer customer;
-	public Order(Product[] products, int[] productAmounts, User user, Customer customer) {
+	public Order(User user, Customer customer) {
 		date = new Date();
 		status = Status.REQUESTED;
-		this.products = products;
-		this.productAmounts = productAmounts;
+		products = new ArrayList<Product>();
+		productAmounts = new ArrayList<Integer>();
 		this.user = user;
 		this.customer = customer;
 	}
@@ -36,10 +38,16 @@ public class Order implements Serializable{
 	public Date getDate() {
 		return date;
 	}
-	public Product[] getProducts() {
+	public void addProduct(Product product) {
+		products.add(product);
+	}
+	public List<Product> getProducts() {
 		return products;
 	}
-	public int[] getProductAmounts() {
+	public void addAmount(int amount) {
+		productAmounts.add(amount);
+	}
+	public List<Integer> getProductAmounts() {
 		return productAmounts;
 	}
 	public User getUser() {

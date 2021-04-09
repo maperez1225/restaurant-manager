@@ -26,6 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import model.Customer;
 import model.Ingredient;
+import model.Order;
 import model.Product;
 import model.ProductType;
 import model.Restaurant;
@@ -40,6 +41,7 @@ public class RestaurantGUI {
 			e.printStackTrace();
 		}
 	}
+	private Order pendingOrder;
 	@FXML
     private Pane mainPane;
     @FXML
@@ -444,8 +446,7 @@ public class RestaurantGUI {
 			mainPane.getChildren().add(userView);
 		} catch (IOException e) {
 			e.printStackTrace();
-		
-	}
+		}
 	}
 	@FXML
     public void createOrderWindow(ActionEvent event) {
@@ -524,34 +525,47 @@ public class RestaurantGUI {
 		}
 	}
 
-	 @FXML
-	    void addProductToOrder(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void backOrderManage(ActionEvent event) {
-	    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("order-manage.fxml"));
-			fxmlLoader.setController(this);
-			try {
-				Parent userView = fxmlLoader.load();
-				mainPane.getChildren().clear();
-				mainPane.getChildren().add(userView);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	@FXML
+	public void addProductToOrder(ActionEvent event) {
+		pendingOrder.addProduct(null);
+		pendingOrder.addAmount(Integer.parseInt(txtProductAmount.getText()));
+	}
+	
+	@FXML
+	public void backOrderManage(ActionEvent event) {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("order-manage.fxml"));
+		fxmlLoader.setController(this);
+		try {
+			Parent userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-	    
-
-	    @FXML
-	    void createOrder(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void OrderCustomerSearch(ActionEvent event) {
-
-	    }
+	}
+	@FXML
+	public void createOrder(ActionEvent event) {
+		
+	}
+	
+	@FXML
+	public void orderCustomerSearch(ActionEvent event) {
+		try {
+			int index = restaurant.getCustomer(Long.parseLong(txtCustomerPhoneNumber.getText()));
+			if (index < 0) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Error");
+				alert.setHeaderText(null);
+				alert.setContentText("Cliente no encontrado.");
+				alert.show();
+			}
+			else {
+				pendingOrder = new Order(restaurant.getUser(restaurant.getUser(txtLoginUser.getText())), restaurant.getCustomer(index));
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+	}
 	@FXML
 	public void editProduct(ActionEvent event) {
 		
