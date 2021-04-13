@@ -35,6 +35,9 @@ public class Order implements Serializable{
 		else if (status == Status.SENT)
 			status = Status.DELIVERED;
 	}
+	public Status getStatus() {
+		return status;
+	}
 	public Date getDate() {
 		return date;
 	}

@@ -133,6 +133,18 @@ public class RestaurantGUI {
     @FXML
     private TableColumn<Product, String> tcProductEnabled;
     @FXML
+    private ChoiceBox<Product> choiceProductOrder;
+    @FXML
+	private TableView<Order> tvUpdateOrder;
+	@FXML
+	private TableColumn<Order, String> tcUpdateName;	
+	@FXML
+	private TableColumn<Order, String> tcUpdateStatus;
+	@FXML
+	public void updateOrder(ActionEvent event) {
+		tvUpdateOrder.getSelectionModel().getSelectedItem().updateStatus();
+	}
+    @FXML
     public void addType(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("type-create.fxml"));
 		fxmlLoader.setController(this);
@@ -456,6 +468,7 @@ public class RestaurantGUI {
 			Parent userView = fxmlLoader.load();
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(userView);
+			choiceProductOrder.setItems(FXCollections.observableArrayList(restaurant.getProducts()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -527,7 +540,7 @@ public class RestaurantGUI {
 
 	@FXML
 	public void addProductToOrder(ActionEvent event) {
-		pendingOrder.addProduct(null);
+		pendingOrder.addProduct(choiceProductOrder.getValue());
 		pendingOrder.addAmount(Integer.parseInt(txtProductAmount.getText()));
 	}
 	
