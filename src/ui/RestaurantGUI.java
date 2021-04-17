@@ -1,6 +1,9 @@
 package ui;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -20,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
@@ -40,6 +44,20 @@ public class RestaurantGUI {
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
+		Thread timerThread = new Thread(() -> {
+	        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	        while (true) {
+	            try {
+	                Thread.sleep(1000); //1 second
+	            } catch (InterruptedException e) {
+	                e.printStackTrace();
+	            }
+	            final String time = simpleDateFormat.format(new Date());
+	            Platform.runLater(() -> {
+	                dateTime.setText(time);
+	            });
+	        }
+	    });   timerThread.start();
 	}
 	private Order pendingOrder;
 	@FXML
@@ -140,6 +158,9 @@ public class RestaurantGUI {
 	private TableColumn<Order, String> tcUpdateName;	
 	@FXML
 	private TableColumn<Order, String> tcUpdateStatus;
+	@FXML
+	private Label dateTime;
+	
 	@FXML
 	public void updateOrder(ActionEvent event) {
 		tvUpdateOrder.getSelectionModel().getSelectedItem().updateStatus();
