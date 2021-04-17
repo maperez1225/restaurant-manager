@@ -19,32 +19,27 @@
    <children>
       <Button maxHeight="50.0" maxWidth="300.0" minHeight="50.0" minWidth="300.0" mnemonicParsing="false" onAction="#manageProducts" style="-fx-background-color: gold;" text="Gestionar Productos">
          <font>
-            <Font size="18.0" />
+            <Font size="24.0" />
          </font>
       </Button>
       <Button maxHeight="50.0" maxWidth="300.0" minHeight="50.0" minWidth="300.0" mnemonicParsing="false" onAction="#manageIngredients" style="-fx-background-color: gold;" text="Gestionar Ingredientes" GridPane.columnIndex="1">
          <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button maxHeight="50.0" maxWidth="300.0" minHeight="50.0" minWidth="300.0" mnemonicParsing="false" onAction="#manageUsers" style="-fx-background-color: gold;" text="Gestionar Usuarios" GridPane.rowIndex="1">
-         <font>
-            <Font size="18.0" />
+            <Font size="24.0" />
          </font>
       </Button>
       <Button maxHeight="50.0" maxWidth="300.0" minHeight="50.0" minWidth="300.0" mnemonicParsing="false" onAction="#manageCustomers" style="-fx-background-color: gold;" text="Gestionar Clientes" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
-            <Font size="18.0" />
+            <Font size="24.0" />
          </font>
       </Button>
-      <Button maxHeight="50.0" maxWidth="300.0" minHeight="50.0" minWidth="300.0" mnemonicParsing="false" onAction="#manageOrders" style="-fx-background-color: gold;" text="Gestionar Pedidos" GridPane.rowIndex="2">
+      <Button maxHeight="50.0" maxWidth="300.0" minHeight="50.0" minWidth="300.0" mnemonicParsing="false" onAction="#manageOrders" style="-fx-background-color: gold;" text="Gestionar Pedidos" GridPane.rowIndex="1">
          <font>
-            <Font size="18.0" />
+            <Font size="24.0" />
          </font>
       </Button>
       <Button maxHeight="50.0" maxWidth="300.0" minHeight="50.0" minWidth="300.0" mnemonicParsing="false" onAction="#backLogin" style="-fx-background-color: gold;" text="Salir" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <font>
-            <Font size="18.0" />
+            <Font size="24.0" />
          </font>
       </Button>
    </children>

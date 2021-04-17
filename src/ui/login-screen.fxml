@@ -24,22 +24,28 @@
    <children>
       <Label alignment="CENTER" prefHeight="35.0" prefWidth="800.0" text="Bienvenido a La Casa Dorada" textFill="#b8a539" GridPane.columnSpan="3">
          <font>
-            <Font size="24.0" />
+            <Font size="30.0" />
          </font>
       </Label>
       <Label alignment="CENTER" text="Ingrese su usuario:" textFill="#b8a539" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <font>
-            <Font size="14.0" />
+            <Font size="20.0" />
          </font>
       </Label>
       <Label alignment="CENTER" text="Ingrese su contraseña:" textFill="#b8a539" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <font>
-            <Font size="14.0" />
+            <Font size="20.0" />
          </font>
       </Label>
       <TextField fx:id="txtLoginUser" maxWidth="446.0" minWidth="100.0" prefHeight="25.0" prefWidth="446.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
       <PasswordField fx:id="txtLoginPassword" maxWidth="446.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: gold;" text="Ingresar" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-      <Button mnemonicParsing="false" onAction="#launchCreateUser" prefWidth="150.0" style="-fx-background-color: gold;" text="Crear usuario" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: gold;" text="Ingresar" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button mnemonicParsing="false" onAction="#launchCreateUser" prefWidth="150.0" style="-fx-background-color: gold;" text="Crear usuario" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
    </children>
 </GridPane>

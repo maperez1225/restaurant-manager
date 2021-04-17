@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -18,19 +19,23 @@
     <RowConstraints maxHeight="270.0" minHeight="10.0" prefHeight="106.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TableView fx:id="tvUpdateOrder" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tvOrders" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="tcUpdateName" prefWidth="449.0" text="Name" />
-          <TableColumn fx:id="tcUpdateStatus" minWidth="0.0" prefWidth="176.0" text="Status" />
+          <TableColumn fx:id="tcOrdersName" prefWidth="329.0" text="Nombre" />
+          <TableColumn fx:id="tcOrdersStatus" minWidth="0.0" prefWidth="140.0" text="Estado" />
+            <TableColumn fx:id="tcOrdersDate" minWidth="0.0" prefWidth="176.0" text="Fecha" />
         </columns>
       </TableView>
-      <Button mnemonicParsing="false" onAction="#updateOrder" style="-fx-background-color: gold;" text="Actualizar Estado" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+      <Button mnemonicParsing="false" onAction="#exportOrders" style="-fx-background-color: gold;" text="Exportar" GridPane.columnIndex="1" GridPane.halignment="CENTER">
          <font>
             <Font size="16.0" />
          </font></Button>
       <Button mnemonicParsing="false" onAction="#backMain" style="-fx-background-color: gold;" text="Regresar" GridPane.rowIndex="1">
          <font>
             <Font size="24.0" />
-         </font></Button>
+         </font>
+         <GridPane.margin>
+            <Insets left="50.0" />
+         </GridPane.margin></Button>
    </children>
 </GridPane>

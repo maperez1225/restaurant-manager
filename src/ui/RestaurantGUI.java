@@ -1,11 +1,9 @@
 package ui;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
 import javafx.application.Platform;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +14,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -27,7 +24,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import javafx.util.Callback;
 import model.Customer;
 import model.Ingredient;
 import model.Order;
@@ -168,6 +164,20 @@ public class RestaurantGUI {
     @FXML
     private TableColumn<Product, String> tcCreateOrderPCost;
 	@FXML
+	private TableView<Order> tvOrders;
+	@FXML
+	private TableColumn<Order, String> tcOrdersName;
+	@FXML
+	private TableColumn<Order, String> tcOrdersStatus;
+	@FXML
+	private TableColumn<Order, String> tcOrdersDate;
+	@FXML
+    private Label labelOrderPrice;
+	@FXML
+	public void exportOrders(ActionEvent event) {
+		
+	}
+	@FXML
     public void addType(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("type-create.fxml"));
 		fxmlLoader.setController(this);
@@ -184,6 +194,12 @@ public class RestaurantGUI {
     	ProductType type = new ProductType(createTypeName.getText());
     	try {
 			restaurant.addType(type);
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Tipo de Producto");
+			alert.setHeaderText(null);
+			alert.setContentText("Tipo de producto agregado exitosamente.");
+			alert.show();
+			createTypeName.clear();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -248,10 +264,6 @@ public class RestaurantGUI {
 			txtLoginUser.clear();
 			txtLoginPassword.clear();
 		}
-	}
-	@FXML
-	public void manageUsers(ActionEvent event){
-		
 	}
 	@FXML
 	public void launchCreateUser(ActionEvent event){
@@ -325,6 +337,12 @@ public class RestaurantGUI {
 		if (restaurant.getCustomer(customer.getPhone()) < 0)
 			try {
 				restaurant.addCustomer(customer);
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Cliente");
+				alert.setHeaderText(null);
+				alert.setContentText("Cliente creado exitosamente.");
+				alert.show();
+				addCustomer(event);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -417,18 +435,6 @@ public class RestaurantGUI {
 	}
 	@FXML
     public void manageIngredients(ActionEvent event){
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingredient-manage.fxml"));
-    	fxmlLoader.setController(this);
-		try {
-			Parent userView = fxmlLoader.load();
-			mainPane.getChildren().clear();
-			mainPane.getChildren().add(userView);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    }
-    @FXML
-	public void addIngredient(ActionEvent event) {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingredient-create.fxml"));
     	fxmlLoader.setController(this);
 		try {
@@ -438,7 +444,7 @@ public class RestaurantGUI {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+    }
 	@FXML
 	public void createIngredient(ActionEvent event) {
 		Ingredient ingredient = new Ingredient(createIngredientName.getText(),createIngredientEnable.isSelected(), restaurant.getUser(restaurant.getUser(txtLoginUser.getText())));
@@ -462,14 +468,6 @@ public class RestaurantGUI {
 			alert.setContentText("El ingrediente ya existe.");
 			alert.show();
 		}
-	}
-	@FXML
-	public void editIngredient(ActionEvent event) {
-		
-	}
-	@FXML
-	public void loadIngredientList(ActionEvent event) {
-		
 	}
 	@FXML
 	public void manageOrders(ActionEvent event){
@@ -499,12 +497,16 @@ public class RestaurantGUI {
 
     @FXML
     public void manageOrder(ActionEvent event) {
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("order-manage.fxml"));
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("order-update.fxml"));
 		fxmlLoader.setController(this);
 		try {
 			Parent userView = fxmlLoader.load();
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(userView);
+			ObservableList<Order> observableList = FXCollections.observableArrayList(restaurant.getActiveOrders());
+			tvUpdateOrder.setItems(observableList);
+			tcUpdateName.setCellValueFactory(new PropertyValueFactory<Order,String>("customer"));
+			tcUpdateStatus.setCellValueFactory(new PropertyValueFactory<Order,String>("status"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -512,7 +514,13 @@ public class RestaurantGUI {
     
 	@FXML
 	public void updateOrder(ActionEvent event) {
-		tvUpdateOrder.getSelectionModel().getSelectedItem().updateStatus();
+		try {
+			tvUpdateOrder.getSelectionModel().getSelectedItem().updateStatus();
+			restaurant.saveData();
+			manageOrder(event);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	@FXML
 	public void backOrderManage(ActionEvent event) {
@@ -528,7 +536,11 @@ public class RestaurantGUI {
 	}
 	@FXML
 	public void createOrder(ActionEvent event) {
-		
+		try {
+			restaurant.addOrder(pendingOrder);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	@FXML
 	public void orderCustomerSearch(ActionEvent event) {
@@ -543,10 +555,41 @@ public class RestaurantGUI {
 			}
 			else {
 				pendingOrder = new Order(restaurant.getUser(restaurant.getUser(txtLoginUser.getText())), restaurant.getCustomer(index));
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Orden");
+				alert.setHeaderText(null);
+				alert.setContentText("Cliente asignado exitosamente.");
+				alert.show();
 			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
+	}
+	@FXML
+    void viewOrders(ActionEvent event) {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("orders-list.fxml"));
+		fxmlLoader.setController(this);
+		try {
+			Parent userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+			ObservableList<Order> observableList = FXCollections.observableArrayList(restaurant.getDeliveredOrders());
+			tvOrders.setItems(observableList);
+			tcOrdersName.setCellValueFactory(new PropertyValueFactory<Order,String>("customer"));
+			tcOrdersStatus.setCellValueFactory(new PropertyValueFactory<Order,String>("status"));
+			tcOrdersDate.setCellValueFactory(new PropertyValueFactory<Order,String>("date"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+	@FXML
+	public void addProductToOrder(ActionEvent event) {
+		pendingOrder.addProduct(choiceProductOrder.getValue());
+		ObservableList<Product> observableList = FXCollections.observableArrayList(pendingOrder.getProducts());
+		tvCreateOrderProducts.setItems(observableList);
+		tcCreateOrderPName.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
+		tcCreateOrderPCost.setCellValueFactory(new PropertyValueFactory<Product,String>("price"));
+		labelOrderPrice.setText("Total: $"+pendingOrder.calculateTotal());
 	}
 	@FXML
 	public void manageProducts(ActionEvent event){
@@ -562,7 +605,8 @@ public class RestaurantGUI {
 	}
 	@FXML
 	public void createProduct(ActionEvent event) {
-		Product product = new Product(txtCreateProductName.getText(), choiceCreateProductType.getValue(), null, txtCreateProductSize.getText(), Integer.valueOf(txtCreateProductPrice.getText()));
+		ObservableList<Ingredient> selectedItems = lvCreateProductIngredients.getSelectionModel().getSelectedItems();
+		Product product = new Product(txtCreateProductName.getText(), choiceCreateProductType.getValue(), new ArrayList<>(selectedItems), txtCreateProductSize.getText(), Integer.valueOf(txtCreateProductPrice.getText()));
 		if (restaurant.getProduct(product.getName()) < 0)
 			try {
 				restaurant.addProduct(product);
@@ -599,14 +643,6 @@ public class RestaurantGUI {
 		}
 	}
 	@FXML
-	public void addProductToOrder(ActionEvent event) {
-		pendingOrder.addProduct(choiceProductOrder.getValue());
-		ObservableList<Product> observableList = FXCollections.observableArrayList(pendingOrder.getProducts());
-		tvCreateOrderProducts.setItems(observableList);
-		tcCreateOrderPName.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
-		tcCreateOrderPCost.setCellValueFactory(new PropertyValueFactory<Product,String>("price"));
-	}
-	@FXML
 	public void loadProductList(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("products-list.fxml"));
 		fxmlLoader.setController(this);
@@ -618,11 +654,7 @@ public class RestaurantGUI {
 			tvProductsList.setItems(observableList);
 			tcProductName.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
 			tcProductType.setCellValueFactory(new PropertyValueFactory<Product,String>("type"));
-			tcProductIngredients.setCellValueFactory(new Callback<CellDataFeatures<Product, String>, ObservableValue<String>>() {
-			     public ObservableValue<String> call(CellDataFeatures<Product, String> p) {
-			         return new ReadOnlyObjectWrapper<String>(Arrays.toString(p.getValue().getIngredients()));
-			     }
-			  });
+			tcProductIngredients.setCellValueFactory(new PropertyValueFactory<Product,String>("ingredients"));
 			tcProductSize.setCellValueFactory(new PropertyValueFactory<Product,String>("size"));
 			tcProductPrice.setCellValueFactory(new PropertyValueFactory<Product,String>("price"));
 			tcProductEnabled.setCellValueFactory(new PropertyValueFactory<Product,String>("enabled"));

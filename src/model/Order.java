@@ -51,4 +51,11 @@ public class Order implements Serializable{
 	public Customer getCustomer() {
 		return customer;
 	}
+	public int calculateTotal() {
+		int total = 0;
+		for (int i = 0; i < products.size(); i++) {
+			total += products.get(i).getPrice();
+		}
+		return total;
+	}
 }

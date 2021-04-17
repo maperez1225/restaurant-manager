@@ -28,7 +28,7 @@
       </Label>
       <Label text="Nombre del Ingrediente:" textFill="#b8a539" GridPane.rowIndex="1">
          <font>
-            <Font size="14.0" />
+            <Font size="20.0" />
          </font></Label>
       <TextField fx:id="createIngredientName" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
@@ -36,15 +36,15 @@
          </font></TextField>
       <CheckBox fx:id="createIngredientEnable" mnemonicParsing="false" selected="true" text="Habilitar" textFill="#b8a539" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
-            <Font size="14.0" />
+            <Font size="20.0" />
          </font></CheckBox>
       <Button mnemonicParsing="false" onAction="#backMain" style="-fx-background-color: gold;" text="Regresar" GridPane.rowIndex="2">
          <font>
-            <Font size="14.0" />
+            <Font size="24.0" />
          </font></Button>
       <Button mnemonicParsing="false" onAction="#createIngredient" style="-fx-background-color: gold;" text="Agregar" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
-            <Font size="14.0" />
+            <Font size="24.0" />
          </font></Button>
    </children>
 </GridPane>

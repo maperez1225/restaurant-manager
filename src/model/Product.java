@@ -1,14 +1,15 @@
 package model;
 import java.io.Serializable;
+import java.util.List;
 public class Product implements Serializable{
 	private static final long serialVersionUID = 1;
 	private String name;
 	private ProductType type;
-	private Ingredient[] ingredients;
+	private List<Ingredient> ingredients;
 	private String size;
 	private int price;
 	private boolean enabled;
-	public Product(String name, ProductType type, Ingredient[] ingredients, String size, int price) {
+	public Product(String name, ProductType type, List<Ingredient> ingredients, String size, int price) {
 		this.name = name;
 		this.type = type;
 		this.ingredients = ingredients;
@@ -19,6 +20,10 @@ public class Product implements Serializable{
 	public String getName() {
 		return name;
 	}
+	@Override
+	public String toString() {
+		return name+" - "+size;
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -28,10 +33,10 @@ public class Product implements Serializable{
 	public void setType(ProductType type) {
 		this.type = type;
 	}
-	public Ingredient[] getIngredients() {
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
-	public void setIngredients(Ingredient[] ingredients) {
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 	public String getSize() {

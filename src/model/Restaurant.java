@@ -171,4 +171,12 @@ public class Restaurant{
 		}
 		return activeOrders;
 	}
+	public List<Order> getDeliveredOrders(){
+		List<Order> deliveredOrders = new ArrayList<Order>();
+		for (int i = 0; i < orders.size(); i++) {
+			if (orders.get(i).getStatus() == Order.Status.DELIVERED)
+				deliveredOrders.add(orders.get(i));
+		}
+		return deliveredOrders;
+	}
 }
