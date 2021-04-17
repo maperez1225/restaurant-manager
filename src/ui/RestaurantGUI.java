@@ -45,19 +45,20 @@ public class RestaurantGUI {
 			e.printStackTrace();
 		}
 		Thread timerThread = new Thread(() -> {
-	        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-	        while (true) {
-	            try {
-	                Thread.sleep(1000); //1 second
-	            } catch (InterruptedException e) {
-	                e.printStackTrace();
-	            }
-	            final String time = simpleDateFormat.format(new Date());
-	            Platform.runLater(() -> {
-	                dateTime.setText(time);
-	            });
-	        }
-	    });   timerThread.start();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			while (true) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				final String time = simpleDateFormat.format(new Date());
+				Platform.runLater(() -> {
+					dateTime.setText(time);
+				});
+			}
+		});
+		timerThread.start();
 	}
 	private Order pendingOrder;
 	@FXML
@@ -160,12 +161,13 @@ public class RestaurantGUI {
 	private TableColumn<Order, String> tcUpdateStatus;
 	@FXML
 	private Label dateTime;
-	
 	@FXML
-	public void updateOrder(ActionEvent event) {
-		tvUpdateOrder.getSelectionModel().getSelectedItem().updateStatus();
-	}
+    private TableView<Product> tvCreateOrderProducts;
     @FXML
+    private TableColumn<Product, String> tcCreateOrderPName;
+    @FXML
+    private TableColumn<Product, String> tcCreateOrderPCost;
+	@FXML
     public void addType(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("type-create.fxml"));
 		fxmlLoader.setController(this);
@@ -509,6 +511,44 @@ public class RestaurantGUI {
 	}
     
 	@FXML
+	public void updateOrder(ActionEvent event) {
+		tvUpdateOrder.getSelectionModel().getSelectedItem().updateStatus();
+	}
+	@FXML
+	public void backOrderManage(ActionEvent event) {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("order-manage.fxml"));
+		fxmlLoader.setController(this);
+		try {
+			Parent userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@FXML
+	public void createOrder(ActionEvent event) {
+		
+	}
+	@FXML
+	public void orderCustomerSearch(ActionEvent event) {
+		try {
+			int index = restaurant.getCustomer(Long.parseLong(txtCustomerPhoneNumber.getText()));
+			if (index < 0) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Error");
+				alert.setHeaderText(null);
+				alert.setContentText("Cliente no encontrado.");
+				alert.show();
+			}
+			else {
+				pendingOrder = new Order(restaurant.getUser(restaurant.getUser(txtLoginUser.getText())), restaurant.getCustomer(index));
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+	}
+	@FXML
 	public void manageProducts(ActionEvent event){
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("product-manage.fxml"));
 		fxmlLoader.setController(this);
@@ -558,51 +598,13 @@ public class RestaurantGUI {
 			e.printStackTrace();
 		}
 	}
-
 	@FXML
 	public void addProductToOrder(ActionEvent event) {
 		pendingOrder.addProduct(choiceProductOrder.getValue());
-		pendingOrder.addAmount(Integer.parseInt(txtProductAmount.getText()));
-	}
-	
-	@FXML
-	public void backOrderManage(ActionEvent event) {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("order-manage.fxml"));
-		fxmlLoader.setController(this);
-		try {
-			Parent userView = fxmlLoader.load();
-			mainPane.getChildren().clear();
-			mainPane.getChildren().add(userView);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	@FXML
-	public void createOrder(ActionEvent event) {
-		
-	}
-	
-	@FXML
-	public void orderCustomerSearch(ActionEvent event) {
-		try {
-			int index = restaurant.getCustomer(Long.parseLong(txtCustomerPhoneNumber.getText()));
-			if (index < 0) {
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Error");
-				alert.setHeaderText(null);
-				alert.setContentText("Cliente no encontrado.");
-				alert.show();
-			}
-			else {
-				pendingOrder = new Order(restaurant.getUser(restaurant.getUser(txtLoginUser.getText())), restaurant.getCustomer(index));
-			}
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-	}
-	@FXML
-	public void editProduct(ActionEvent event) {
-		
+		ObservableList<Product> observableList = FXCollections.observableArrayList(pendingOrder.getProducts());
+		tvCreateOrderProducts.setItems(observableList);
+		tcCreateOrderPName.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
+		tcCreateOrderPCost.setCellValueFactory(new PropertyValueFactory<Product,String>("price"));
 	}
 	@FXML
 	public void loadProductList(ActionEvent event) {

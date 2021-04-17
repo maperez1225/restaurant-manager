@@ -16,14 +16,12 @@ public class Order implements Serializable{
 	private Date date;
 	private Status status;
 	private List<Product> products;
-	private List<Integer> productAmounts;
 	private User user;
 	private Customer customer;
 	public Order(User user, Customer customer) {
 		date = new Date();
 		status = Status.REQUESTED;
 		products = new ArrayList<Product>();
-		productAmounts = new ArrayList<Integer>();
 		this.user = user;
 		this.customer = customer;
 	}
@@ -46,12 +44,6 @@ public class Order implements Serializable{
 	}
 	public List<Product> getProducts() {
 		return products;
-	}
-	public void addAmount(int amount) {
-		productAmounts.add(amount);
-	}
-	public List<Integer> getProductAmounts() {
-		return productAmounts;
 	}
 	public User getUser() {
 		return user;
