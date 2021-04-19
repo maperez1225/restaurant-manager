@@ -1,4 +1,6 @@
 package ui;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +26,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import model.Customer;
 import model.Ingredient;
 import model.Order;
@@ -175,7 +179,19 @@ public class RestaurantGUI {
     private Label labelOrderPrice;
 	@FXML
 	public void exportOrders(ActionEvent event) {
-		
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Exportar Pedidos");
+		ExtensionFilter filter = new ExtensionFilter("Comma Separated Values (*.csv)", "*.csv");
+		fc.getExtensionFilters().add(filter);
+		fc.setSelectedExtensionFilter(filter);
+		File f = fc.showSaveDialog(mainPane.getScene().getWindow());
+		if (f != null) {
+			try {
+				restaurant.exportOrders(f.getPath());
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	@FXML
     public void addType(ActionEvent event) {
@@ -538,6 +554,7 @@ public class RestaurantGUI {
 	public void createOrder(ActionEvent event) {
 		try {
 			restaurant.addOrder(pendingOrder);
+			backMain(event);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -566,7 +583,7 @@ public class RestaurantGUI {
 		}
 	}
 	@FXML
-    void viewOrders(ActionEvent event) {
+    public void viewOrders(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("orders-list.fxml"));
 		fxmlLoader.setController(this);
 		try {

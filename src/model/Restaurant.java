@@ -1,10 +1,12 @@
 package model;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 public class Restaurant{
@@ -49,6 +51,15 @@ public class Restaurant{
 			loaded = true;
 		}
 		return loaded;
+	}
+	public void exportOrders(String fileName) throws FileNotFoundException {
+		PrintWriter pw = new PrintWriter(fileName);
+		pw.println("Cliente;Fecha;Productos;Total;Usuario");
+		for (int i = 0; i < getDeliveredOrders().size(); i++) {
+			Order o = getDeliveredOrders().get(i);
+			pw.println(o.getCustomer()+";"+o.getDate()+";"+o.getProducts()+";"+o.calculateTotal()+";"+o.getUser());
+		}
+		pw.close();
 	}
 	public void addUser(User user) throws IOException {
 		users.add(user);

@@ -14,22 +14,21 @@
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button mnemonicParsing="false" onAction="#addProduct" style="-fx-background-color: gold;" text="Agregar Producto">
+      <Button mnemonicParsing="false" onAction="#addProduct" prefWidth="310.0" style="-fx-background-color: gold;" text="Agregar Producto">
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Button mnemonicParsing="false" onAction="#loadProductList" style="-fx-background-color: gold;" text="Ver Productos" GridPane.columnIndex="1">
+      <Button mnemonicParsing="false" onAction="#loadProductList" prefWidth="310.0" style="-fx-background-color: gold;" text="Ver Productos" GridPane.columnIndex="1">
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Button mnemonicParsing="false" onAction="#backMain" style="-fx-background-color: gold;" text="Regresar" GridPane.rowIndex="2">
+      <Button mnemonicParsing="false" onAction="#backMain" prefWidth="310.0" style="-fx-background-color: gold;" text="Regresar" GridPane.rowIndex="1">
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Button mnemonicParsing="false" onAction="#addType" style="-fx-background-color: gold;" text="Agregar Tipo de Producto" GridPane.rowIndex="1">
+      <Button mnemonicParsing="false" onAction="#addType" prefWidth="310.0" style="-fx-background-color: gold;" text="Agregar Tipo de Producto" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
             <Font size="24.0" />
          </font></Button>
